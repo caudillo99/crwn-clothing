@@ -3,8 +3,6 @@ import CollectionItem from '../collections-item/collections-item.component.jsx'
 import './preview-collection.syles.scss'
 
 const CollectionPreview = ({ title, items }) => {
-   console.log('items ==> ',items);
-   console.log('title ==> ', title);
    return(
       <div className='collection-preview'>
          <h1 className='title'>{title.toUpperCase()}</h1>
