@@ -4,7 +4,7 @@ import Shop from "./pages/shop/shop.component.jsx";
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './components/header/header.component.jsx'
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component.jsx'
-import {auth} from './firebase/firebase.utils'
+import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 import './App.css';
 
 
@@ -14,16 +14,28 @@ class App extends Component {
       this.state= {
          currentUser: null
       }
-     
    }
 
    // eslint-disable-next-line no-undef
    unsubscribeFromAuth = null;
    
    componentDidMount() {
-      this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-         this.setState( {currentUser: user} );
-         console.log('currentUser',this.state.currentUser);
+      this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+         if(userAuth){
+            const userRef = await createUserProfileDocument(userAuth);
+
+            userRef.onSnapshot(snapshot => {
+               this.setState({
+                  currentUser:{
+                     id: snapshot.id,
+                     ...snapshot.data()
+                  }
+               })
+               console.log(this.state)
+            });
+         }else{
+            this.setState({currentUser:userAuth});
+         }
       });
    }
 
