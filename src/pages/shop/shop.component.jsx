@@ -6,8 +6,16 @@ import CollectionsOverview from '../../components/collections-overview/collectio
 import CollectionPage from '../collection/collection.component';
 import { convertCollectionsSnapshotToMap, firestore } from '../../firebase/firebase.utils';
 import { updateCollections } from '../../redux/shop/shop.actions';
+import WithSpinner from '../../components/with-spinner/with-spinner.component';
+
+const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
+const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class Shop extends Component {
+   // eslint-disable-next-line no-undef
+   state = {
+      loading: true
+   };
    // eslint-disable-next-line no-undef
    unsuscribeFromSnapshot = null;
 
@@ -15,19 +23,27 @@ class Shop extends Component {
       const { updateCollections } = this.props;
       const collectionRef = firestore.collection('collections');
 
-      collectionRef.onSnapshot(async snapshot => {
+      collectionRef.get().then(snapshot => {
          const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
          updateCollections(collectionsMap);
-      })
+         this.setState({ loading: false });
+      });
    }
    
 
    render() {
       const { match } = this.props;
+      const { loading } = this.state;
       return(
          <div className='shop-page'>
-            <Route exact path={`${match.path}`} component={CollectionsOverview} />
-            <Route path={`${match.path}/:categoryId`} component={CollectionPage} />
+            <Route 
+               exact path={`${match.path}`} 
+               render={(props)=> <CollectionsOverviewWithSpinner isLoading={loading} {...props} />} 
+            />
+            <Route 
+               path={`${match.path}/:categoryId`} 
+               render={(props) => <CollectionPageWithSpinner isLoading={loading} {...props} /> }
+            />
          </div>
       );
    }
