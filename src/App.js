@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+//import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import CheckoutPage from "./pages/checkout/checkout.component.jsx";
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -24,9 +24,10 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    /*
     const { setCurrentUser } = this.props;
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
@@ -39,7 +40,7 @@ class App extends Component {
       } else {
         setCurrentUser(userAuth);
       }
-    });
+    }); */
   }
 
   componentWillUnmount() {
