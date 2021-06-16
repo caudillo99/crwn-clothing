@@ -9,27 +9,49 @@ export const googleSignInStart = () => ({
   type: userActionsTypes.GOOGLE_SIGN_IN_START,
 });
 
-export const googleSignInSuccess = (user) => ({
-  type: userActionsTypes.GOOGLE_SIGN_IN_SUCCESS,
-  payload: user,
-});
-
-export const googleSignInFailure = (error) => ({
-  type: userActionsTypes.GOOGLE_SIGN_IN_FAILURE,
-  payload: error,
-});
-
 export const emailSignInStart = (emailAndPassword) => ({
   type: userActionsTypes.EMAIL_SIGN_IN_START,
   payload: emailAndPassword,
 });
 
-export const emailSignInSuccess = (user) => ({
-  type: userActionsTypes.EMAIL_SIGN_IN_SUCCESS,
+export const signInSuccess = (user) => ({
+  type: userActionsTypes.SIGN_IN_SUCCESS,
   payload: user,
 });
 
-export const emailSignInFailure = (error) => ({
-  type: userActionsTypes.EMAIL_SIGN_IN_FAILURE,
+export const signInFailure = (error) => ({
+  type: userActionsTypes.SIGN_IN_FAILURE,
+  payload: error,
+});
+
+export const checkUserSession = () => ({
+  type: userActionsTypes.CHECK_USER_SESSION,
+});
+
+export const signOutStart = () => ({
+  type: userActionsTypes.SIGN_OUT_START,
+});
+
+export const signOutSuccess = () => ({
+  type: userActionsTypes.SIGN_OUT_SUCCESS,
+});
+
+export const signOutFailure = (error) => ({
+  type: userActionsTypes.SIGN_OUT_FAILURE,
+  payload: error,
+});
+
+export const signUpStart = (data) => ({
+  type: userActionsTypes.SIGN_UP_START,
+  payload: data,
+});
+
+export const signUpSuccess = (user) => ({
+  type: userActionsTypes.SIGN_UP_SUCCESS,
+  payload: user,
+});
+
+export const signUpFailure = (error) => ({
+  type: userActionsTypes.SIGN_UP_FAILURE,
   payload: error,
 });
